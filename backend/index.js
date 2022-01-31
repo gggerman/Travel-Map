@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const app = express();
 const pinRoute = require("./src/routes/pins");
+const userRoute = require("./src/routes/users");
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ mongoose.connect(process.env.MONGO_URL, {
     });
 
 app.use("/pins", pinRoute);
+app.use("/users", userRoute);
 
 app.listen(3001, () => {
     console.log("Backend server is running!");
