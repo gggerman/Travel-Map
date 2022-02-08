@@ -13,7 +13,7 @@ function App() {
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
   const [title, setTitle] = useState(null);
-  const [desc, setDesc] = useState(null);
+  const [description, setDescription] = useState(null);
   const [rating, setRating] = useState(0);
   const [viewport, setViewport] = useState({
     width: "100vw",
@@ -49,6 +49,26 @@ function App() {
     })
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newPin = {
+      username: currentUser,
+      title,
+      description,
+      rating,
+      latitude: newPlace.latitude,
+      longitude: newPlace.longitude
+    }
+
+    try {
+      const response = await axios.post("/pins", newPin);
+      setPins([...pins, response.data]);
+      setNewPlace(null);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className="App">
       <ReactMapGL
@@ -56,15 +76,15 @@ function App() {
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX}
         onViewportChange={nextViewport => setViewport(nextViewport)}
         onDblClick={handleAddClick}
-        transitionDuration="200"
+        transitionDuration="50"
       >
         {pins.map((pin, index) => (
           <>
             <Marker
               latitude={pin.latitude} 
               longitude={pin.longitude} 
-              offsetLeft={-20} 
-              offsetTop={-10}>
+              offsetLeft={-viewport.zoom * 3.5} 
+              offsetTop={-viewport.zoom * 7}>
               <Room 
                 style={{fontSize: viewport.zoom * 7, color: pin.username === currentUser ? "tomato" : "slateblue", cursor: "pointer"}}
                 onClick={() => handleMarkerClick(pin._id, pin.latitude, pin.longitude)}/>
@@ -85,11 +105,7 @@ function App() {
                   <p className="description">{pin.description}</p>
                   <label>Rating</label>
                   <div className="stars">  
-                    <Star className="star" />
-                    <Star className="star" />
-                    <Star className="star" />
-                    <Star className="star" />
-                    <Star className="star" />
+                    {Array(pin.rating).fill(<Star className="star" />)}
                   </div>
                   <label>Information</label>
                   <span className="username">Created By <b>{pin.username}</b></span>
@@ -110,13 +126,19 @@ function App() {
               onClose={() => setNewPlace(null)}
             >
               <div>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <label>Title</label>
-                  <input type="text" placeholder="Enter a title"/>
+                  <input 
+                    placeholder="Enter a title" 
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
                   <label>Review</label>
-                  <textarea placeholder="Tell us something about this place."/>
+                  <textarea 
+                    placeholder="Tell us something about this place."
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
                   <label>Rating</label>
-                  <select>
+                  <select onChange={(e) => setRating(e.target.value)}>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -127,8 +149,7 @@ function App() {
                 </form>
               </div>
             </Popup>
-          )
-          }
+          )}
       </ReactMapGL>
     </div>
   );
