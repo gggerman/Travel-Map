@@ -34,7 +34,7 @@ export const Register = ({ setShowRegister }) => {
     <div className="registerContainer">
       <div className="logo">
         <Room />
-        LamaPin
+        Travel Map
       </div>
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Username" ref={nameRef} />

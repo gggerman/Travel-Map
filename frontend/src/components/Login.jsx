@@ -33,7 +33,7 @@ export const Login = ({ setShowLogin, myStorage, setCurrentUser }) => {
     <div className="loginContainer">
       <div className="logo">
         <Room />
-        LamaPin
+        Travel Map
       </div>
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Username" ref={nameRef} />
