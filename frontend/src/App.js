@@ -85,7 +85,6 @@ function App() {
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX}
         onViewportChange={nextViewport => setViewport(nextViewport)}
         onDblClick={handleAddClick}
-        transitionDuration="50"
       >
         {pins.map((pin, index) => (
           <>
