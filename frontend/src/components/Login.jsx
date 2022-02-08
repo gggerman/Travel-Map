@@ -3,7 +3,7 @@ import { Room, Cancel } from "@mui/icons-material";
 import axios from "axios";
 import "./login.css";
 
-export const Login = ({ setShowLogin }) => {
+export const Login = ({ setShowLogin, myStorage, setCurrentUser }) => {
   const [error, setError] = useState(false);
 
   const nameRef = useRef();
@@ -18,7 +18,10 @@ export const Login = ({ setShowLogin }) => {
     };
 
     try {
-      await axios.post("/users/login", user);
+      const response = await axios.post("/users/login", user);
+      myStorage.setItem("user", response.data.username);
+      setCurrentUser(response.data.username);
+      setShowLogin(false);
       setError(false);
     } catch (error) {
       console.error(error);

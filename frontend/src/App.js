@@ -9,7 +9,8 @@ import { Login } from './components/Login';
 import './App.css';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const myStorage = window.localStorage;
+  const [currentUser, setCurrentUser] = useState(myStorage.getItem("user"));
   const [pins, setPins] = useState([]);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
@@ -70,6 +71,11 @@ function App() {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  const handleLogout = () => {
+    myStorage.removeItem("user");
+    setCurrentUser(null);
   }
 
   return (
@@ -154,7 +160,7 @@ function App() {
             </Popup>
           )}
           {currentUser ? (
-            <button className="button logout">Log Out</button>
+            <button className="button logout" onClick={handleLogout}>Log Out</button>
           ) : (
             <div className="buttons">
               <button className="button login" onClick={() => setShowLogin(true)}>Log In</button>
@@ -162,7 +168,7 @@ function App() {
             </div>
           )}
           {showRegister && <Register setShowRegister={setShowRegister}/>}
-          {showLogin && <Login setShowLogin={setShowLogin}/>}
+          {showLogin && <Login setShowLogin={setShowLogin} myStorage={myStorage} setCurrentUser={setCurrentUser}/>}
       </ReactMapGL>
     </div>
   );
