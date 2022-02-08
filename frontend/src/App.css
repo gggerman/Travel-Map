@@ -21,3 +21,11 @@ label {
 .star {
   color: gold;
 }
+
+.username {
+  font-size: 14px;
+}
+
+.date {
+  font-size: 12px;
+}
