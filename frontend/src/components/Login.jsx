@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { Room, Cancel } from "@mui/icons-material";
 import axios from "axios";
 import "./login.css";
+const { REACT_APP_SERVER } = process.env;
 
 export const Login = ({ setShowLogin, myStorage, setCurrentUser }) => {
   const [error, setError] = useState(false);
@@ -18,7 +19,10 @@ export const Login = ({ setShowLogin, myStorage, setCurrentUser }) => {
     };
 
     try {
-      const response = await axios.post("/users/login", user);
+      const response = await axios.post(
+        `${REACT_APP_SERVER}/users/login`,
+        user
+      );
       myStorage.setItem("user", response.data.username);
       setCurrentUser(response.data.username);
       setShowLogin(false);

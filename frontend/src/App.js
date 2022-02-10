@@ -7,6 +7,7 @@ import { format } from 'timeago.js';
 import { Register } from './components/Register';
 import { Login } from './components/Login';
 import './App.css';
+const { REACT_APP_SERVER } = process.env;
 
 function App() {
   const myStorage = window.localStorage;
@@ -30,7 +31,7 @@ function App() {
   useEffect(() => {
     const getPins = async () => {
       try {
-        const response = await axios.get("/pins");
+        const response = await axios.get(`${REACT_APP_SERVER}/pins`);
         setPins(response.data);
       } catch (error) {
         console.error(error);
@@ -65,7 +66,7 @@ function App() {
     }
 
     try {
-      const response = await axios.post("/pins", newPin);
+      const response = await axios.post(`${REACT_APP_SERVER}/pins`, newPin);
       setPins([...pins, response.data]);
       setNewPlace(null);
     } catch (error) {

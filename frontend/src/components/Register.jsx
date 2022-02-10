@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { Room, Cancel } from "@mui/icons-material";
 import axios from "axios";
 import "./register.css";
+const { REACT_APP_SERVER } = process.env;
 
 export const Register = ({ setShowRegister }) => {
   const [success, setSuccess] = useState(false);
@@ -21,7 +22,7 @@ export const Register = ({ setShowRegister }) => {
     };
 
     try {
-      await axios.post("/users/register", newUser);
+      await axios.post(`${REACT_APP_SERVER}/users/register`, newUser);
       setError(false);
       setSuccess(true);
     } catch (error) {
