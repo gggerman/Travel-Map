@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import ReactMapGL, {Marker, Popup} from 'react-map-gl';
 import { Room, Star } from '@mui/icons-material';
 import axios from 'axios';
-import { format } from 'timeago.js';
 import { Register } from './components/Register';
 import { Login } from './components/Login';
+// import TimeAgo from 'timeago-react/src/timeago-react';
 import './App.css';
 
 function App() {
@@ -117,7 +117,12 @@ function App() {
                   </div>
                   <label>Information</label>
                   <span className="username">Created By <b>{pin.username}</b></span>
-                  <span className="date">{format(pin.createdAt)}</span>
+                  <span className="date">
+                    {/* <TimeAgo
+                      datetime={pin.createdAt}
+                    /> */}
+                    {pin.createdAt}
+                  </span>
                 </div>
               </Popup>
               )
