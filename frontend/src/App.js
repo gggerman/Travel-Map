@@ -5,7 +5,7 @@ import { Room, Star } from '@mui/icons-material';
 import axios from 'axios';
 import { Register } from './components/Register';
 import { Login } from './components/Login';
-// import TimeAgo from 'timeago-react/src/timeago-react';
+import TimeAgo from 'timeago-react';
 import './App.css';
 
 import mapboxgl from 'mapbox-gl';
@@ -126,10 +126,9 @@ function App() {
                   <label>Information</label>
                   <span className="username">Created By <b>{pin.username}</b></span>
                   <span className="date">
-                    {/* <TimeAgo
+                    <TimeAgo
                       datetime={pin.createdAt}
-                    /> */}
-                    {pin.createdAt}
+                    />
                   </span>
                 </div>
               </Popup>
