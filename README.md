@@ -1,6 +1,6 @@
 # Travel Map
 
-<p align="left">
+<p>
   <img src="https://german-garcia-portfolio.vercel.app/static/media/TravelMap.9af70a63.png" />
 </p>
 
