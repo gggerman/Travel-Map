@@ -1,7 +1,7 @@
 # Travel Map
 
 <p align="left">
-  <img height="150" src="https://german-garcia-portfolio.vercel.app/static/media/TravelMap.9af70a63.png" />
+  <img src="https://german-garcia-portfolio.vercel.app/static/media/TravelMap.9af70a63.png" />
 </p>
 
 ## Technologies used:
